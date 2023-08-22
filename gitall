@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+
+import os
+from termcolor import colored
+import argparse as args
+
+def check_code(code, message, foo=True):
+    continuar = ""
+    if code != 0:
+        print(colored(message, 'yellow'))
+        if foo:
+            continuar = input()
+            if continuar == 'n':
+                exit(1)
+
+def add():
+    print(colored('Adicionando arquivos...', "blue"))
+    code = os.system('git add .')
+    check_code(code, "Erro ao adicionar arquivos. Deseja continuar? (Y/n)")
+
+def commit(message="up"):
+    print(colored('Commitando arquivos...', "blue"))
+    code = os.system(f'git commit -m "{message}"')
+    check_code(code, "Erro ao commitar arquivos. Deseja continuar? (Y/n)")
+
+def pull():
+    print(colored('Puxando arquivos...', "blue"))
+    code = os.system('git pull --rebase')
+    check_code(code, "Erro ao puxar arquivos. Deseja continuar? (Y/n)")
+
+def push():
+    print(colored('Enviando arquivos...', "blue"))
+    code = os.system('git push')
+    check_code(code, "Erro ao enviar arquivos.", False)
+
+parser = args.ArgumentParser(description='Git all the things! Use with no arguments to commit with message "up"')
+parser.add_argument('-m', '--message', help='Message to the commit', action='store_true')
+parser.add_argument('-p', '--pull', help='Pull with rebase', action='store_true')
+parser.add_argument('-P', '--push', help='Push', action='store_true')
+parser.add_argument('-c', '--commit', help='Commit', action='store_true')
+
+args = parser.parse_args()
+
+message = "up"
+
+if args.message:
+    message = ""
+    while message == "":
+        message = input(colored("Digite a mensagem do commit: ", "blue"))
+        if message == "":
+            print(colored("Não pode ser vazio.", 'red'))
+
+if args.pull:
+    print(colored("Puxando com rebase apenas.", 'blue'))
+    
+if args.push:
+    print(colored("Enviando apenas.", 'blue'))
+    push()
+    exit(0)
+
+if args.commit:
+    print(colored("Commitando apenas.", 'blue'))
+    add()
+    commit(message)
+    exit(0)
+
+add()
+commit(message)
+pull()
+if not args.pull:
+    push()
+
+print(colored("Tudo certo!", 'green'))
