@@ -1,5 +1,8 @@
 # GitALL - O simplificador de commits do git
 
+- [Usage](#usage)
+- [Install](#install)
+
 ## Usage: 
 
 ```
@@ -15,3 +18,7 @@ optional arguments:
 gitall sem argumentos faz o commit de todos os aquivos com a mensagem "up"
 
 ```
+
+## Install
+
+- **run** `sudo sh install.sh``
