@@ -1,12 +1,17 @@
 # RUN IN SUDO!!!
 
-if [ -e /usr/bin/pygit ];
-  then rm /usr/bin/pygit
-fi
+#install termocolor dependency
+echo "Installing PIP..."
+sudo apt-get install python3-pip > dev/null 2>&1
+echo "Installed."
 
-INSTALL_DIR=/usr/bin
+echo "Installing python termcolor..."
+pip install termcolor > dev/null 2>&1
+echo "Installed."
 
-cp gitall $INSTALL_DIR
-chmod +x $INSTALL_DIR/gitall
+wget https://raw.githubusercontent.com/Rodriggrr/GitALL/master/gitall
+chmod +x gitall
+
+mv gitall ~/.local/bin
 
 echo "Gitall installed successfully!"
