@@ -21,4 +21,4 @@ gitall sem argumentos faz o commit de todos os aquivos com a mensagem "up"
 
 ## Install
 
-- **run** `sudo sh install.sh`
+- **run** `sh -c "$(curl -fsSL https://raw.githubusercontent.com/Rodriggrr/GitALL/master/install.sh)"`
